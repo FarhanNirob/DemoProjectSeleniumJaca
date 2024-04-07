@@ -1,0 +1,42 @@
+<?xml version= "1.0" encoding= "UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Demo Project | Demo Project Automation Test With Selenium Java" allow-return-values="true">
+    <parameter name ="browser" value="chrome"/>
+
+
+    <test name="Verify Login with valid input">
+
+        <classes>
+            <class name="tests.LoginTest">
+                <methods>
+                    <include name="verifyLoginWithValidInput"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+<!--    <test name="Excel Sheet Write Test">-->
+
+<!--        <classes>-->
+<!--            <class name="tests.HomeTest">-->
+<!--                <methods>-->
+<!--                    <include name="writeInExcel"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+<!--    <test name="Database Testing">-->
+
+<!--        <classes>-->
+<!--            <class name="tests.HomeTest">-->
+<!--                <methods>-->
+<!--                    <include name="dbTest"/>-->
+<!--                </methods>-->
+<!--            </class>-->
+<!--        </classes>-->
+<!--    </test>-->
+
+</suite>
+
