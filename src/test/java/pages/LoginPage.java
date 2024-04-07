@@ -12,6 +12,10 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
+    private By usernameField = By.cssSelector("input[name='username']");
+    private By passwordField = By.cssSelector("input[name='password']");
+    private By loginBtn = By.cssSelector("button[type='submit']");
+
 //    private By emailField = By.name("email");
 //    private By passwordField = By.name("Password");
 //    private By popupClose = By.cssSelector("img[title='Close']");
@@ -36,7 +40,9 @@ public class LoginPage extends BasePage{
 //    private By row = By.xpath("//table[@id='resultTable'] //tbody //tr");
 //    private By coronaText = By.cssSelector(".সংক্রমণ span");
 
-
+    public WebElement getUsernameField(){return elementWithWait(usernameField,"presence");}
+    public WebElement getPasswordField(){return elementWithWait(passwordField,"presence");}
+    public WebElement getLoginBtn(){return elementWithWait(loginBtn,"clickable");}
 //    public WebElement getEmailField(){return elementWithWait(emailField,"presence");}
 //    public WebElement getPasswordField(){return elementWithWait(passwordField,"presence");}
 //    public WebElement getPopupCloseBtn(){return elementWithWait(popupClose,"clickable");}

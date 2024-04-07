@@ -27,7 +27,7 @@ public class BaseTest {
     public static String resourcesRoot = "./resources/";// Set Path f resources
     FluentWait wait;
     public static Page page;
-    private static ConfigProperties configProperties;
+    public static ConfigProperties configProperties;
     public static String baseUrl;
     public static  int dataRowCount = 0;
 //    public static DataSetAccess dataSetAccess;

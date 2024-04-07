@@ -7,8 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.LoginPage;
 import pages.Page;
 //import utils.DataSetAccess;
+import utils.ConfigProperties;
 import utils.Log;
 
 import java.io.IOException;
@@ -253,9 +255,28 @@ public class LoginTest extends BaseTest{
 //        databaseConnection.dbConnect();
 //        Log.info("In Database Test Class...............");
 //    }
+
+    /**
+     * Login with valid credentials
+     */
     @Test
     public void verifyLoginWithValidInput(){
+        SoftAssert softAssert = new SoftAssert();
+
         Log.info("Into verifyLoginWithValidInput Test");
+
+        //Url Assertion
+        String currentUrl = driver.getCurrentUrl();
+        Log.debug("Current Url: "+ currentUrl);
+        String expectedUrl = configProperties.config.getProperty("BASE_URL");
+        Log.info("Expected Url: "+expectedUrl);
+        softAssert.assertEquals(currentUrl,expectedUrl);
+
+        //Insert Credentials
+        page.getInstance(LoginPage.class).getUsernameField().sendKeys("Admin");
+        page.getInstance(LoginPage.class).getPasswordField().sendKeys("admin123");
+
+        softAssert.assertAll();
 
     }
 
