@@ -11,6 +11,7 @@ import pages.LoginPage;
 import pages.Page;
 //import utils.DataSetAccess;
 import utils.ConfigProperties;
+import utils.Constant;
 import utils.Log;
 
 import java.io.IOException;
@@ -273,8 +274,20 @@ public class LoginTest extends BaseTest{
         softAssert.assertEquals(currentUrl,expectedUrl);
 
         //Insert Credentials
-        page.getInstance(LoginPage.class).getUsernameField().sendKeys("Admin");
-        page.getInstance(LoginPage.class).getPasswordField().sendKeys("admin123");
+        page.getInstance(LoginPage.class).getUsernameField().sendKeys(adminUsername);
+        page.getInstance(LoginPage.class).getPasswordField().sendKeys(adminPassword);
+
+        //Click on login Button
+        page.getInstance(LoginPage.class).getLoginBtn().click();
+        Log.info("Login Button Clicked");
+
+        //Logged in User Info
+        String loggedInUserInfo = page.getInstance(LoginPage.class).getLoggedInUsername().getText();
+        Log.debug("Actual Logged In Username: "+loggedInUserInfo);
+        softAssert.assertEquals(loggedInUserInfo,adminUserInfo);
+
+        String adminLoggedInUrl = driver.getCurrentUrl();
+        Log.info("Logged In page URL: "+adminLoggedInUrl);
 
         softAssert.assertAll();
 

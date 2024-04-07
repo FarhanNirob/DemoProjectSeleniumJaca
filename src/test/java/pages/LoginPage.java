@@ -15,6 +15,7 @@ public class LoginPage extends BasePage{
     private By usernameField = By.cssSelector("input[name='username']");
     private By passwordField = By.cssSelector("input[name='password']");
     private By loginBtn = By.cssSelector("button[type='submit']");
+    private By loggedInUsername = By.cssSelector(".oxd-userdropdown-name");
 
 //    private By emailField = By.name("email");
 //    private By passwordField = By.name("Password");
@@ -43,6 +44,7 @@ public class LoginPage extends BasePage{
     public WebElement getUsernameField(){return elementWithWait(usernameField,"presence");}
     public WebElement getPasswordField(){return elementWithWait(passwordField,"presence");}
     public WebElement getLoginBtn(){return elementWithWait(loginBtn,"clickable");}
+    public WebElement getLoggedInUsername(){return elementWithWait(loggedInUsername,"clickable");}
 //    public WebElement getEmailField(){return elementWithWait(emailField,"presence");}
 //    public WebElement getPasswordField(){return elementWithWait(passwordField,"presence");}
 //    public WebElement getPopupCloseBtn(){return elementWithWait(popupClose,"clickable");}

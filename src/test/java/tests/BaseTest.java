@@ -13,6 +13,7 @@ import org.testng.annotations.*;
 import pages.BasePage;
 import pages.Page;
 import utils.ConfigProperties;
+import utils.Constant;
 //import utils.DataSetAccess;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class BaseTest {
     FluentWait wait;
     public static Page page;
     public static ConfigProperties configProperties;
+    public static Constant constant;
     public static String baseUrl;
     public static  int dataRowCount = 0;
 //    public static DataSetAccess dataSetAccess;
@@ -41,6 +43,7 @@ public class BaseTest {
 
 //        dataSetAccess = new DataSetAccess();
         configProperties = new ConfigProperties();
+        constant = new Constant();
         url = configProperties.config.getProperty("BASE_URL");
     }
 
