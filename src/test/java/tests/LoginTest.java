@@ -263,7 +263,7 @@ public class LoginTest extends BaseTest{
      * Login with valid credentials
      */
     @Test
-    public void verifyLoginWithValidInput(){
+    public void verifyLoginWithValidInput() throws Exception {
 
 
         Log.info("Into verifyLoginWithValidInput Test");
@@ -291,6 +291,8 @@ public class LoginTest extends BaseTest{
         String adminLoggedInUrl = driver.getCurrentUrl();
         Log.info("Logged In page URL: "+adminLoggedInUrl);
 
+        takeScreenshot(driver, "./resources/"+"Screenshot\\validLogin.png");
+
         //Logout
         logout();
 
@@ -303,7 +305,7 @@ public class LoginTest extends BaseTest{
      * Login with invalid credentials
      */
     @Test
-    public void verifyLoginWithInvalidCredentials(){
+    public void verifyLoginWithInvalidCredentials() throws Exception {
 
 
         Log.info("Into verifyLoginWithInvalidCredentials Test");
@@ -331,6 +333,8 @@ public class LoginTest extends BaseTest{
         String popUpText = page.getInstance(LoginPage.class).getInvalidCredentialsTxt().getText();
         Log.debug("Popup Text for Invalid Credentials: "+popUpText);
         softAssert.assertEquals(popUpText,invalidCredentialsPopupText);
+
+        takeScreenshot(driver, "./resources/"+"Screenshot\\invalidLogin.png");
 
         softAssert.assertAll();
 
