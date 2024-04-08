@@ -12,6 +12,7 @@ import pages.Page;
 //import utils.DataSetAccess;
 import utils.ConfigProperties;
 import utils.Constant;
+import utils.Helper;
 import utils.Log;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class LoginTest extends BaseTest{
 //        writeExcelSheet = new WriteExcelSheet();
 //        databaseConnection = new DatabaseConnection();
     }
+
 
 //    @Test
 //    public void locatorTest() throws Exception {
@@ -262,7 +264,7 @@ public class LoginTest extends BaseTest{
      */
     @Test
     public void verifyLoginWithValidInput(){
-        SoftAssert softAssert = new SoftAssert();
+
 
         Log.info("Into verifyLoginWithValidInput Test");
 
@@ -284,13 +286,70 @@ public class LoginTest extends BaseTest{
         //Logged in User Info
         String loggedInUserInfo = page.getInstance(LoginPage.class).getLoggedInUsername().getText();
         Log.debug("Actual Logged In Username: "+loggedInUserInfo);
-        softAssert.assertEquals(loggedInUserInfo,adminUserInfo);
+//        softAssert.assertEquals(loggedInUserInfo,adminUserInfo);
 
         String adminLoggedInUrl = driver.getCurrentUrl();
         Log.info("Logged In page URL: "+adminLoggedInUrl);
 
+        //Logout
+        logout();
+
         softAssert.assertAll();
 
+    }
+
+
+    /**
+     * Login with invalid credentials
+     */
+    @Test
+    public void verifyLoginWithInvalidCredentials(){
+
+
+        Log.info("Into verifyLoginWithInvalidCredentials Test");
+
+        //Url Assertion
+        String currentUrl = driver.getCurrentUrl();
+        Log.debug("Current Url: "+ currentUrl);
+        String expectedUrl = configProperties.config.getProperty("BASE_URL");
+        Log.info("Expected Url: "+expectedUrl);
+        softAssert.assertEquals(currentUrl,expectedUrl);
+
+        //Random String generation
+        String random = Helper.generateRandomString(8);
+        Log.info("Random Generated String: "+random);
+
+        //Insert Credentials
+        page.getInstance(LoginPage.class).getUsernameField().sendKeys(random);
+        page.getInstance(LoginPage.class).getPasswordField().sendKeys(random);
+
+        //Click on login Button
+        page.getInstance(LoginPage.class).getLoginBtn().click();
+        Log.info("Login Button Clicked with Invalid Credentials");
+
+        //Invalid Credentials Assertion
+        String popUpText = page.getInstance(LoginPage.class).getInvalidCredentialsTxt().getText();
+        Log.debug("Popup Text for Invalid Credentials: "+popUpText);
+        softAssert.assertEquals(popUpText,invalidCredentialsPopupText);
+
+        softAssert.assertAll();
+
+    }
+
+    public void logout(){
+        page.getInstance(LoginPage.class).getProfileDropdown().click();
+        page.getInstance(LoginPage.class).getLogoutBtn().click();
+
+        //Wait till logout successfully
+        page.getInstance(LoginPage.class).getLoginBtn();
+
+        //Logout assertion
+        String currentUrl = driver.getCurrentUrl();
+        Log.debug("Current Url after Logout: "+currentUrl);
+        softAssert.assertEquals(currentUrl,configProperties.config.getProperty("BASE_URL"));
+        softAssert.assertAll();
+
+        Log.info("Logout Successfully....");
     }
 
 

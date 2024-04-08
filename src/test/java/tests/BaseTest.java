@@ -10,10 +10,12 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pages.BasePage;
 import pages.Page;
 import utils.ConfigProperties;
 import utils.Constant;
+import utils.Helper;
 //import utils.DataSetAccess;
 
 import java.io.File;
@@ -33,6 +35,8 @@ public class BaseTest {
     public static String baseUrl;
     public static  int dataRowCount = 0;
 //    public static DataSetAccess dataSetAccess;
+    public static Helper helper;
+    public static SoftAssert softAssert;
 
 
 
@@ -42,8 +46,10 @@ public class BaseTest {
     public void init() throws IOException {
 
 //        dataSetAccess = new DataSetAccess();
+        softAssert = new SoftAssert();
         configProperties = new ConfigProperties();
         constant = new Constant();
+        helper = new Helper();
         url = configProperties.config.getProperty("BASE_URL");
     }
 
@@ -116,6 +122,7 @@ public class BaseTest {
 //        FileUtils.copyFile(srcFile,destinationFile);
 //
 //    }
+
 
     @AfterSuite
     public void tearDown(){
