@@ -294,7 +294,7 @@ public class LoginTest extends BaseTest{
         takeScreenshot(driver, "./resources/"+"Screenshot\\validLogin.png");
 
         //Logout
-        logout();
+        Helper.logout();
 
         softAssert.assertAll();
 
@@ -340,21 +340,7 @@ public class LoginTest extends BaseTest{
 
     }
 
-    public void logout(){
-        page.getInstance(LoginPage.class).getProfileDropdown().click();
-        page.getInstance(LoginPage.class).getLogoutBtn().click();
 
-        //Wait till logout successfully
-        page.getInstance(LoginPage.class).getLoginBtn();
-
-        //Logout assertion
-        String currentUrl = driver.getCurrentUrl();
-        Log.debug("Current Url after Logout: "+currentUrl);
-        softAssert.assertEquals(currentUrl,configProperties.config.getProperty("BASE_URL"));
-        softAssert.assertAll();
-
-        Log.info("Logout Successfully....");
-    }
 
 
 }

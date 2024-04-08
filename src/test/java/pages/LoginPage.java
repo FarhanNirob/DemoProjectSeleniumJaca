@@ -48,7 +48,7 @@ public class LoginPage extends BasePage{
     public WebElement getPasswordField(){return elementWithWait(passwordField,"presence");}
     public WebElement getLoginBtn(){return elementWithWait(loginBtn,"clickable");}
     public WebElement getLoggedInUsername(){return elementWithWait(loggedInUsername,"clickable");}
-    public WebElement getInvalidCredentialsTxt(){return elementWithWait(invalidCredentialsTxt,"visibility");}
+    public WebElement getInvalidCredentialsTxt(){return elementWithWait(invalidCredentialsTxt,"presence");}
     public WebElement getProfileDropdown(){return elementWithWait(profileDropdown,"clickable");}
     public WebElement getLogoutBtn(){return elementWithWait(logoutBtn,"clickable");}
 //    public WebElement getEmailField(){return elementWithWait(emailField,"presence");}

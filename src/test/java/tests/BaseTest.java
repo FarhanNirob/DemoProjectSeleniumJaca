@@ -17,6 +17,7 @@ import pages.BasePage;
 import pages.Page;
 import utils.ConfigProperties;
 import utils.Constant;
+import utils.DataSetAccess;
 import utils.Helper;
 //import utils.DataSetAccess;
 
@@ -39,7 +40,7 @@ public class BaseTest {
     public static Constant constant;
     public static String baseUrl;
     public static  int dataRowCount = 0;
-//    public static DataSetAccess dataSetAccess;
+    public static DataSetAccess dataSetAccess;
     public static Helper helper;
     public static SoftAssert softAssert;
 
@@ -50,7 +51,7 @@ public class BaseTest {
 
     public void init() throws IOException {
 
-//        dataSetAccess = new DataSetAccess();
+        dataSetAccess = new DataSetAccess();
         softAssert = new SoftAssert();
         configProperties = new ConfigProperties();
         constant = new Constant();
