@@ -1,3 +1,9 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+Log/
+/Screenshot/
+resources/Screenshot/
+allure-results/
+*.log
+*.json

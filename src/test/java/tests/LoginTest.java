@@ -291,7 +291,7 @@ public class LoginTest extends BaseTest{
         String adminLoggedInUrl = driver.getCurrentUrl();
         Log.info("Logged In page URL: "+adminLoggedInUrl);
 
-        takeScreenshot(driver, "./resources/"+"Screenshot\\validLogin.png");
+        captureScreenshot(driver,"verifyLoginWithValidInput");
 
         //Logout
         Helper.logout();
@@ -334,7 +334,8 @@ public class LoginTest extends BaseTest{
         Log.debug("Popup Text for Invalid Credentials: "+popUpText);
         softAssert.assertEquals(popUpText,invalidCredentialsPopupText);
 
-        takeScreenshot(driver, "./resources/"+"Screenshot\\invalidLogin.png");
+//        takeScreenshot(driver, "./resources/"+"Screenshot\\invalidLogin.png");
+        captureScreenshot(driver,"verifyLoginWithInvalidCredentials");
 
         softAssert.assertAll();
 

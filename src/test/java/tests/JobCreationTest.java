@@ -91,7 +91,8 @@ public class JobCreationTest extends BaseTest{
         page.getInstance(JobCreationPage.class).getSaveBtn().click();
         Log.info("Save Button Clicked");
 
-        takeScreenshot(driver, "./resources/"+"Screenshot\\jobCreation.png");
+//        takeScreenshot(driver, "./resources/"+"Screenshot\\jobCreation.png");
+        captureScreenshot(driver,"verifyJobCreation");
 
         //Logout
         Helper.logout();

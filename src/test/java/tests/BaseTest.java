@@ -21,13 +21,16 @@ import utils.DataSetAccess;
 import utils.Helper;
 //import utils.DataSetAccess;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class BaseTest {
@@ -114,19 +117,35 @@ public class BaseTest {
 
 
 
-    public static void takeScreenshot(WebDriver webDriver, String filePath) throws Exception{
-        //Convert web driver object to TakeScreenshot
-        TakesScreenshot screenshot = ((TakesScreenshot) webDriver);
+    public static void captureScreenshot(WebDriver driver, String testName) {
+        // Get the current date and time
+        Date now = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        String timestamp = dateFormat.format(now);
 
-        //Call getScreenshotAs method to create image file
-        File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
+        // Define the screenshot directory
+        String screenshotDir = "resources/Screenshot";
+        File screenshotDirFile = new File(screenshotDir);
+        if (!screenshotDirFile.exists()) {
+            screenshotDirFile.mkdir();
+        }
 
-        //Move image file to new destination
-        File destinationFile = new File(filePath);
+        // Define the screenshot file path
+        String screenshotPath = screenshotDir + File.separator + testName + "_" + timestamp + ".png";
 
-        //Copy file at destination
-        FileUtils.copyFile(srcFile,destinationFile);
+        // Capture screenshot and save it
+        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(screenshotFile, new File(screenshotPath));
+            System.out.println("Screenshot captured: " + screenshotPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Capture screenshot
+        byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
 
+        // Attach screenshot to Allure
+        Allure.addAttachment(testName + " - Screenshot", new ByteArrayInputStream(screenshotBytes));
     }
 
 
