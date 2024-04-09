@@ -6,11 +6,10 @@
 
 
         <suite-files>
-            <suite-file path="LoginTest.xml"></suite-file>
+<!--            <suite-file path="LoginTest.xml"></suite-file>-->
 <!--            <suite-file path="JobCreation.xml"></suite-file>-->
+            <suite-file path="AddEmployee.xml"></suite-file>
         </suite-files>
-
-
 
 </suite>
 

@@ -8,5 +8,7 @@ public class Constant {
     public final static String adminPageUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers";
     public final static String JobTitleListPageUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewJobTitleList";
     public final static String saveJobTitlePage = "https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle";
+    public final static String employeeUsername = "Employee";
+    public final static String employeePassword = "employee123";
 
 }

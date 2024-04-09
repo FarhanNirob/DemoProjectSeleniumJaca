@@ -5,11 +5,16 @@
     <parameter name ="browser" value="chrome"/>
 
 
-        <suite-files>
-<!--            <suite-file path="LoginTest.xml"></suite-file>-->
-<!--            <suite-file path="JobCreation.xml"></suite-file>-->
-            <suite-file path="AddEmployee.xml"></suite-file>
-        </suite-files>
+    <test name="verifyAddEmployee">
+
+        <classes>
+            <class name="tests.AddEmployeeTest">
+                <methods>
+                    <include name="verifyAddEmployee"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 
 </suite>
 
