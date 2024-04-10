@@ -66,11 +66,15 @@ public class AddEmployeeTest extends BaseTest{
         String firstName = Helper.generateRandomString(5)+"FirstName";
         String middleName = Helper.generateRandomString(5)+"MiddleName";
         String lastName = Helper.generateRandomString(5)+"LastName";
+        String employeeID = Helper.generateRandomInteger(4);
         page.getInstance(AddEmployeePage.class).getEmployeeFirstName().sendKeys(firstName);
         page.getInstance(AddEmployeePage.class).getEmployeeMiddleName().sendKeys(middleName);
         page.getInstance(AddEmployeePage.class).getEmployeeLastName().sendKeys(lastName);
+        WebElement employeeIdInsert = page.getInstance(AddEmployeePage.class).getEmployeeId();
+        employeeIdInsert.clear();//Is not Working
+        employeeIdInsert.sendKeys(employeeID);
 
-        Log.info("Inserted Employee Information: "+" "+firstName+ " "+middleName+ " "+ lastName);
+        Log.info("Inserted Employee Information: "+" "+firstName+ " "+middleName+ " "+ lastName+ " "+employeeID);
 
         //Generate Login Information
         page.getInstance(AddEmployeePage.class).getGenerateLoginDetailsBtn().click();
@@ -92,9 +96,36 @@ public class AddEmployeeTest extends BaseTest{
         page.getInstance(AddEmployeePage.class).getSaveBtn().click();
         Log.info("Save Button Clicked");
 
-
-
         captureScreenshot(driver,"verifyAddEmployee");
+
+        //Go to Employee List
+        page.getInstance(AddEmployeePage.class).getTopBarEmployeeListMenu().click();
+        Log.info("Employee List Menu Clicked");
+
+        // Search Created Employee
+//        page.getInstance(AddEmployeePage.class).getEmployeeNameSearchField().sendKeys(firstName);
+        page.getInstance(AddEmployeePage.class).getEmployeeIdSearchField().sendKeys(employeeID);
+        page.getInstance(AddEmployeePage.class).getSearchBtn().click();
+        Log.info("Search Button Clicked");
+
+        // Get Employee Information
+        List<WebElement> cells =page.getInstance(AddEmployeePage.class).getEmployeeInformationCells();
+
+        //Get ID
+        String employeeId = cells.get(1).getText();
+        String employeeFirstAndMiddleName = cells.get(2).getText();
+        String employeeLastName = cells.get(3).getText();
+
+        Log.debug("Created Employee information: "+employeeId+" "+employeeFirstAndMiddleName+" "+employeeLastName);
+
+        captureScreenshot(driver,"Created Employee Search Successfully");
+
+        //Save the Information on Excel
+
+        writeExcelSheet.writeData(employeeId,0);
+        writeExcelSheet.writeData(employeeFirstAndMiddleName,1);
+        writeExcelSheet.writeData(employeeLastName,2);
+
 
         //Logout
         Helper.logout();
