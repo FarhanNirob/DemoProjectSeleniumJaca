@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WriteExcelSheet {
-    public void writeData(String writeValue, int cellNumber) throws IOException {
+    public void writeData(String writeValue,int rowNumber, int cellNumber) throws IOException {
 
         String filePath = System.getProperty("user.dir") + "\\resources\\testdata\\ExcelFiles\\TestDataWrite.xlsx";
 
@@ -22,16 +22,21 @@ public class WriteExcelSheet {
 
         Log.info("Inside Write Data Function");
 
-        int lastRow = sheet.getLastRowNum();
+        //For Dynamic row... but every call it goes to new row
+//        int lastRow = sheet.getLastRowNum();
+//
+//        //-1 indicating the sheet is empty. So the last row number is set to 0.
+//        if(lastRow == -1){
+//            lastRow = 0;
+//        }
+//        Log.info("********** Last Row: "+lastRow);
+//
+//        Row createdRow = sheet.createRow(lastRow+1); // Adding new row after finding the last row.
+//        Log.info("********** Created Row: "+createdRow.toString());
 
-        //-1 indicating the sheet is empty. So the last row number is set to 0.
-        if(lastRow == -1){
-            lastRow = 0;
-        }
-        Log.info("********** Last Row: "+lastRow);
+        Row createdRow = sheet.createRow(rowNumber); // Create row dynamically
+        Log.info("********** Created Row: " + createdRow.toString());
 
-        Row createdRow = sheet.createRow(lastRow+1); // Adding new row after finding the last row.
-        Log.info("********** Created Row: "+createdRow.toString());
 
 
         createdRow.createCell(cellNumber).setCellValue(writeValue);

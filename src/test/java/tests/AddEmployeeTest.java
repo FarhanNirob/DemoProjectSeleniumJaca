@@ -2,6 +2,7 @@ package tests;
 
 
 import excelHandle.WriteExcelSheet;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeClass;
@@ -70,10 +71,13 @@ public class AddEmployeeTest extends BaseTest{
         page.getInstance(AddEmployeePage.class).getEmployeeFirstName().sendKeys(firstName);
         page.getInstance(AddEmployeePage.class).getEmployeeMiddleName().sendKeys(middleName);
         page.getInstance(AddEmployeePage.class).getEmployeeLastName().sendKeys(lastName);
+
         WebElement employeeIdInsert = page.getInstance(AddEmployeePage.class).getEmployeeId();
         employeeIdInsert.clear();//Is not Working
+        employeeIdInsert.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        employeeIdInsert.sendKeys(Keys.BACK_SPACE);
+        //Insert Employee ID
         employeeIdInsert.sendKeys(employeeID);
-
         Log.info("Inserted Employee Information: "+" "+firstName+ " "+middleName+ " "+ lastName+ " "+employeeID);
 
         //Generate Login Information
@@ -84,6 +88,8 @@ public class AddEmployeeTest extends BaseTest{
         List<WebElement> loginInformationInsertFields = page.getInstance(AddEmployeePage.class).getLoginInformationInsertField();
 
         //Username
+        String employeeUsername = "Employee"+employeeID;
+        Log.debug("Employee Username: "+employeeUsername);
         loginInformationInsertFields.get(4).sendKeys(employeeUsername);
         //Password
         loginInformationInsertFields.get(5).sendKeys(employeePassword);
@@ -96,6 +102,12 @@ public class AddEmployeeTest extends BaseTest{
         page.getInstance(AddEmployeePage.class).getSaveBtn().click();
         Log.info("Save Button Clicked");
 
+        //Wait for popup
+        String popupMsg = page.getInstance(AddEmployeePage.class).getAddEmployeeSuccessPopup().getText();
+        Log.debug("Success popup Msg: "+popupMsg);
+
+//        Thread.sleep(5000);
+
         captureScreenshot(driver,"verifyAddEmployee");
 
         //Go to Employee List
@@ -103,7 +115,7 @@ public class AddEmployeeTest extends BaseTest{
         Log.info("Employee List Menu Clicked");
 
         // Search Created Employee
-//        page.getInstance(AddEmployeePage.class).getEmployeeNameSearchField().sendKeys(firstName);
+        page.getInstance(AddEmployeePage.class).getEmployeeNameSearchField().sendKeys(firstName);
         page.getInstance(AddEmployeePage.class).getEmployeeIdSearchField().sendKeys(employeeID);
         page.getInstance(AddEmployeePage.class).getSearchBtn().click();
         Log.info("Search Button Clicked");
@@ -122,9 +134,9 @@ public class AddEmployeeTest extends BaseTest{
 
         //Save the Information on Excel
 
-        writeExcelSheet.writeData(employeeId,0);
-        writeExcelSheet.writeData(employeeFirstAndMiddleName,1);
-        writeExcelSheet.writeData(employeeLastName,2);
+        writeExcelSheet.writeData(employeeId,0,0);
+        writeExcelSheet.writeData(employeeFirstAndMiddleName,0,1);
+        writeExcelSheet.writeData(employeeLastName,0,2);
 
 
         //Logout

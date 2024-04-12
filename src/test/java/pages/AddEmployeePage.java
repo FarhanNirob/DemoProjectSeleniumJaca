@@ -26,6 +26,7 @@ public class AddEmployeePage extends BasePage {
     private By employeeIdSearchField = By.cssSelector(".oxd-grid-item.oxd-grid-item--gutters:nth-child(2) input");
     private By searchBtn = By.cssSelector(".oxd-form-actions button:last-child");
     private By employeeInformationCells = By.cssSelector(".oxd-table-card:first-child .oxd-table-cell.oxd-padding-cell");
+    private By addEmployeeSuccessPopup = By.cssSelector(".oxd-toast.oxd-toast--success.oxd-toast-container--toast");
 
 
 
@@ -44,7 +45,7 @@ public class AddEmployeePage extends BasePage {
     public WebElement getSearchBtn(){return elementWithWait(searchBtn,"presence");}
     public List<WebElement> getEmployeeInformationCells(){return elementsWithWait(employeeInformationCells,"presence");}
 
-
+    public WebElement getAddEmployeeSuccessPopup(){return elementWithWait(addEmployeeSuccessPopup,"presence");}
 
 
 
