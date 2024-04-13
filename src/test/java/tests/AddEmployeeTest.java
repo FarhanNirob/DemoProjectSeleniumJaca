@@ -134,9 +134,9 @@ public class AddEmployeeTest extends BaseTest{
 
         //Save the Information on Excel
 
-        writeExcelSheet.writeData(employeeId,0,0);
-        writeExcelSheet.writeData(employeeFirstAndMiddleName,0,1);
-        writeExcelSheet.writeData(employeeLastName,0,2);
+        writeExcelSheet.writeData(employeeId,0);
+        writeExcelSheet.writeData(employeeFirstAndMiddleName,1);
+        writeExcelSheet.writeData(employeeLastName,2);
 
 
         //Logout

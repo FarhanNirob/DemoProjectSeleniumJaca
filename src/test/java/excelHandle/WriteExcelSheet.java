@@ -1,5 +1,6 @@
 package excelHandle;
 
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -11,7 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WriteExcelSheet {
-    public void writeData(String writeValue,int rowNumber, int cellNumber) throws IOException {
+    public void writeData(String writeValue, int cellNumber) throws IOException {
 
         String filePath = System.getProperty("user.dir") + "\\resources\\testdata\\ExcelFiles\\TestDataWrite.xlsx";
 
@@ -22,26 +23,33 @@ public class WriteExcelSheet {
 
         Log.info("Inside Write Data Function");
 
-        //For Dynamic row... but every call it goes to new row
-//        int lastRow = sheet.getLastRowNum();
-//
-//        //-1 indicating the sheet is empty. So the last row number is set to 0.
-//        if(lastRow == -1){
-//            lastRow = 0;
-//        }
-//        Log.info("********** Last Row: "+lastRow);
-//
-//        Row createdRow = sheet.createRow(lastRow+1); // Adding new row after finding the last row.
-//        Log.info("********** Created Row: "+createdRow.toString());
+        int rowNumber = 0; // Start from the specified row number, Starting from 0
 
-        Row createdRow = sheet.createRow(rowNumber); // Create row dynamically
-        Log.info("********** Created Row: " + createdRow.toString());
+        // Find the next available row with no data in the specified cell
+        while (sheet.getRow(rowNumber) != null && sheet.getRow(rowNumber).getCell(cellNumber) != null
+                && sheet.getRow(rowNumber).getCell(cellNumber).getStringCellValue() != null
+                && !sheet.getRow(rowNumber).getCell(cellNumber).getStringCellValue().isEmpty()) {
+            rowNumber++; // Move to the next row
+        }
 
+        Row row = sheet.getRow(rowNumber); // Check if row already exists
 
+        if (row == null) {
+            // If row does not exist, create a new row
+            row = sheet.createRow(rowNumber);
+            Log.info("********** Created Row: " + row.toString());
+        } else {
+            Log.info("********** Row already exists: " + row.toString());
+        }
 
-        createdRow.createCell(cellNumber).setCellValue(writeValue);
+        // Update cell value
+        Cell cell = row.getCell(cellNumber);
+        if (cell == null) {
+            // If cell does not exist, create a new cell
+            cell = row.createCell(cellNumber);
+        }
+        cell.setCellValue(writeValue);
         Log.info("*********** Data Inserted to Excel Sheet Successfully.");
-
 
         FileOutputStream fos = new FileOutputStream(source);
 
